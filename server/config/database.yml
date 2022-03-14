@@ -1,0 +1,3 @@
+db_config: host=localhost port=5436 user=postgres dbname=digitalrepublic password=postgres007 sslmode=disable TimeZone=America/Fortaleza
+
+db_type: postgres
