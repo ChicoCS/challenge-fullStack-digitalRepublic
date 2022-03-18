@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+  db:
+    build: .docker/postgres
+    container_name: db_postgres_digital_republic
+    restart: always
+    tty: true
+    environment:
+      - POSTGRES_PASSWORD=postgres007
+      - POSTGRES_DB=digitalrepublic
+    volumes:
+      - .docker/db_digital_republic:/var/lib/postgresql/data
+    ports:
+      - 5436:5432

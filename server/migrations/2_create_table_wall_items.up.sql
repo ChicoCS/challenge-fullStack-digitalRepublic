@@ -5,7 +5,7 @@ CREATE TABLE IF NOT EXISTS wall_items (
 	width NUMERIC (10,2),
 	height NUMERIC (10,2),
 	square_meters NUMERIC (10,2)
-)
+);
 
 INSERT INTO wall_items (name, width, height, square_meters) 
 VALUES
