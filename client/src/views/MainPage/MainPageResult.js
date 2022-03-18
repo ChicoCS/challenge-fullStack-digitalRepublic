@@ -21,7 +21,6 @@ function MainPageResult(props) {
   let navigate = useNavigate();
 
   const backToMainPage = () => {
-    mainPageStore.reset();
     navigate("/");
   };
 
@@ -57,7 +56,7 @@ function MainPageResult(props) {
               )}
               {mainPageStore.calculationResult.liters > 0 && (
                 <Grid item xs={12}>
-                  <Typography variant="h5">{`Total liters of paint = ${mainPageStore.calculationResult.total}L`}</Typography>
+                  <Typography variant="h5">{`Total liters of paint = ${mainPageStore.calculationResult.liters}L`}</Typography>
                 </Grid>
               )}
             </Grid>

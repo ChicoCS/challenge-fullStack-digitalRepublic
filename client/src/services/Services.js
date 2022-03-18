@@ -8,8 +8,8 @@ const Services = {
       .then((res) => {
         response.data = res.data
       })
-      .catch(({ res }) => {
-        response.error = res.error
+      .catch((error) => {
+        response.error = error.response.data.error
       });
     return response;
   },

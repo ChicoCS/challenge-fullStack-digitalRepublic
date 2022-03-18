@@ -111,19 +111,16 @@ class MainPageStore {
 
       if (validateData) {
         const response = await Services.Calculate(data);
+
         if (response.error) {
           alert(`${response.error}`);
         }
 
-        this.calculationResult = {
-          liters: response.data.liters,
-          qty_can_0_5l: response.data.qty_can_0_5l,
-          qty_can_2_5l: response.data.qty_can_2_5l,
-          qty_can_3_6l: response.data.qty_can_3_6l,
-          qty_can_18l: response.data.qty_can_18l,
-        };
+        if (response.data) {
+          this.calculationResult = response.data
 
-        navigate("/paint/result");
+          navigate("/paint/result");
+        }
       }
 
       if (!validateData) {

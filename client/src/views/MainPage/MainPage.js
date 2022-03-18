@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { observer } from "mobx-react";
 import PropTypes from "prop-types";
@@ -15,7 +15,6 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import TextField from "@mui/material/TextField";
 
-
 MainPage.propTypes = {
   mainPageStore: PropTypes.object.isRequired,
 };
@@ -28,6 +27,10 @@ function MainPage(props) {
   const calculate = async () => {
     await mainPageStore.calculate(navigate);
   };
+
+  useEffect(() => {
+    mainPageStore.reset();
+  });
 
   return (
     <div style={{ marginRight: "10%", marginLeft: "10%" }}>
