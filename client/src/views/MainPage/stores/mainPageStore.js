@@ -5,35 +5,71 @@ class MainPageStore {
   walls = [
     {
       name: "A",
-      height: null,
-      width: null,
-      n_doors: null,
-      n_windows: null,
+      height: "0",
+      width: "0",
+      n_doors: "0",
+      n_windows: "0",
     },
     {
       name: "B",
-      height: null,
-      width: null,
-      n_doors: null,
-      n_windows: null,
+      height: "0",
+      width: "0",
+      n_doors: "0",
+      n_windows: "0",
     },
     {
       name: "C",
-      height: null,
-      width: null,
-      n_doors: null,
-      n_windows: null,
+      height: "0",
+      width: "0",
+      n_doors: "0",
+      n_windows: "0",
     },
     {
       name: "D",
-      height: null,
-      width: null,
-      n_doors: null,
-      n_windows: null,
+      height: "0",
+      width: "0",
+      n_doors: "0",
+      n_windows: "0",
     },
   ];
 
+  calculationResult = {};
+
   fetching = false;
+
+  reset() {
+    this.walls = [
+      {
+        name: "A",
+        height: "0",
+        width: "0",
+        n_doors: "0",
+        n_windows: "0",
+      },
+      {
+        name: "B",
+        height: "0",
+        width: "0",
+        n_doors: "0",
+        n_windows: "0",
+      },
+      {
+        name: "C",
+        height: "0",
+        width: "0",
+        n_doors: "0",
+        n_windows: "0",
+      },
+      {
+        name: "D",
+        height: "0",
+        width: "0",
+        n_doors: "0",
+        n_windows: "0",
+      },
+    ];
+    this.calculationResult = {};
+  }
 
   handleChangeWall(target, index) {
     const { name, value } = target;
@@ -41,23 +77,22 @@ class MainPageStore {
   }
 
   validateFields(data) {
-    let validation = false;
+    let validation = 0;
     data.forEach((wall) => {
       if (
         wall.height > parseFloat(0) &&
         wall.width > parseFloat(0) &&
-        wall.n_doors >= parseInt(0) &&
-        wall.n_windows >= parseInt(0)
+        wall.qty_doors >= parseInt(0) &&
+        wall.qty_windows >= parseInt(0)
       ) {
-        validation = true;
-      } else {
-        validation = false;
+        validation += 1;
       }
     });
-    return validation;
+
+    return validation === 4;
   }
 
-  async calculate() {
+  async calculate(navigate) {
     try {
       this.fetching = true;
 
@@ -67,19 +102,31 @@ class MainPageStore {
         data.push({
           height: parseFloat(wall.height),
           width: parseFloat(wall.width),
-          n_doors: wall.n_doors ? parseInt(wall.n_doors) : parseInt(0),
-          n_windows: wall.n_windows ? parseInt(wall.n_windows) : parseInt(0),
+          qty_doors: wall.n_doors ? parseInt(wall.n_doors) : parseInt(0),
+          qty_windows: wall.n_windows ? parseInt(wall.n_windows) : parseInt(0),
         })
       );
 
-      const negativeNumberExists = this.validateFields(data);
+      const validateData = this.validateFields(data);
 
-      if (negativeNumberExists) {
+      if (validateData) {
         const response = await Services.Calculate(data);
         if (response.error) {
           alert(`${response.error}`);
         }
-      } else {
+
+        this.calculationResult = {
+          liters: response.data.liters,
+          qty_can_0_5l: response.data.qty_can_0_5l,
+          qty_can_2_5l: response.data.qty_can_2_5l,
+          qty_can_3_6l: response.data.qty_can_3_6l,
+          qty_can_18l: response.data.qty_can_18l,
+        };
+
+        navigate("/paint/result");
+      }
+
+      if (!validateData) {
         alert("Invalid fields.");
       }
     } finally {
@@ -88,24 +135,25 @@ class MainPageStore {
   }
 
   get enableButtonCalculate() {
-    let validation = false;
+    let validation = 0;
     this.walls.forEach((wall) => {
-      if (wall.height == null || wall.width == null) {
-        validation = true;
-      } else {
-        validation = false;
+      if (wall.height > 0 && wall.width > 0) {
+        validation++;
       }
     });
-    return validation;
+
+    return validation === 4;
   }
 
   constructor() {
     makeObservable(this, {
       walls: observable,
       fetching: observable,
+      calculationResult: observable,
       handleChangeWall: action.bound,
       calculate: action.bound,
       validateFields: action.bound,
+      reset: action.bound,
       enableButtonCalculate: computed,
     });
   }

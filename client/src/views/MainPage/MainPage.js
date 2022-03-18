@@ -1,6 +1,8 @@
 import * as React from "react";
+import { useNavigate } from "react-router-dom";
 import { observer } from "mobx-react";
 import PropTypes from "prop-types";
+import { withStore } from "../../stores/context";
 
 import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
@@ -13,7 +15,6 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import TextField from "@mui/material/TextField";
 
-import { withStore } from "../../stores/context";
 
 MainPage.propTypes = {
   mainPageStore: PropTypes.object.isRequired,
@@ -22,8 +23,10 @@ MainPage.propTypes = {
 function MainPage(props) {
   const { mainPageStore } = props;
 
-  const Calculate = async () => {
-    await mainPageStore.calculate();
+  let navigate = useNavigate();
+
+  const calculate = async () => {
+    await mainPageStore.calculate(navigate);
   };
 
   return (
@@ -98,7 +101,6 @@ function MainPage(props) {
                         size="small"
                         variant="filled"
                         label="Doors"
-                        defaultValue={0}
                         value={row.n_doors}
                         type="number"
                         onChange={({ target }) =>
@@ -113,7 +115,6 @@ function MainPage(props) {
                         size="small"
                         variant="filled"
                         label="Windows"
-                        defaultValue={0}
                         value={row.n_windows}
                         type="number"
                         onChange={({ target }) =>
@@ -130,11 +131,11 @@ function MainPage(props) {
         </Card>
         <div style={divButton}>
           <Button
-            disabled={mainPageStore.enableButtonCalculate}
+            disabled={!mainPageStore.enableButtonCalculate}
             style={{ marginRight: 10 }}
             color="primary"
             variant="contained"
-            onClick={Calculate}
+            onClick={calculate}
           >
             Calculate
           </Button>
