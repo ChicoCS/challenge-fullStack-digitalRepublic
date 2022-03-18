@@ -30,7 +30,7 @@ function MainPage(props) {
 
   useEffect(() => {
     mainPageStore.reset();
-  });
+  }, [mainPageStore]);
 
   return (
     <div style={{ marginRight: "10%", marginLeft: "10%" }}>

@@ -56,7 +56,7 @@ function MainPageResult(props) {
               )}
               {mainPageStore.calculationResult.liters > 0 && (
                 <Grid item xs={12}>
-                  <Typography variant="h5">{`Total liters of paint = ${mainPageStore.calculationResult.liters}L`}</Typography>
+                  <Typography variant="h5">{`Total liters of paint = ${mainPageStore.calculationResult.liters.toFixed(2)}L`}</Typography>
                 </Grid>
               )}
             </Grid>
