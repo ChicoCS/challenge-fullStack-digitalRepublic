@@ -7,6 +7,8 @@ link: https://gitlab.com/digitalrepublic/code-challenge
 
 ```
 Enter /server folder and follow the commands below on terminal:
+OBS: You need to have docker installed
+https://docs.docker.com/engine/install/
 
 docker-compose up
 make migrate
