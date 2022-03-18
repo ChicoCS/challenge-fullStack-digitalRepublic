@@ -1,5 +1,11 @@
 package paint
 
 const qryGetWallItems = `
-SELECT * FROM wall_items
+SELECT 
+	name,
+	height,
+	width,
+	square_meters 
+FROM 
+	wall_items
 `

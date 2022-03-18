@@ -28,9 +28,9 @@ type WallItems struct {
 }
 
 type Can struct {
-	QtyCan0_5l null.Int   `json:"qty_can_0_5l"`
-	QtyCan2_5l null.Int   `json:"qty_can_2_5l"`
-	QtyCan3_6l null.Int   `json:"qty_can_3_6l"`
-	QtyCan18l  null.Int   `json:"qty_can_18l"`
+	QtyCan0_5l null.Int   `json:"qty_can0_5l"`
+	QtyCan2_5l null.Int   `json:"qty_can2_5l"`
+	QtyCan3_6l null.Int   `json:"qty_can3_6l"`
+	QtyCan18l  null.Int   `json:"qty_can18l"`
 	Liters     null.Float `json:"liters"`
 }

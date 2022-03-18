@@ -20,9 +20,9 @@ func makeCalculateAmountOfPaintCansNeededEndpoint(s service.ServiceFactory, logg
 		wallsData := request.([]domain.Wall)
 		resp, err := s.Paint().CalculateAmountOfPaintCansNeeded(ctx, wallsData)
 		if err != nil {
-			return newCustomerResponse(http.StatusBadRequest, err, nil)
+			return newCustomerResponse(http.StatusBadRequest, resp, err)
 
 		}
-		return newCustomerResponse(http.StatusCreated, resp, nil)
+		return newCustomerResponse(http.StatusOK, resp, nil)
 	}
 }

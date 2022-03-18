@@ -29,9 +29,3 @@ func NewService(context context.Context, endpoint *endpoint.Endpoints, logger *l
 
 	return e
 }
-
-func (s *server) ReturnJSONError(c echo.Context, code int, message string) {
-	c.JSON(code, struct {
-		Message string `json:"message"`
-	}{message})
-}

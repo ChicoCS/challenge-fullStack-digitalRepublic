@@ -23,7 +23,7 @@ func NewPaintRepository(db *sqlx.DB) PaintRepository {
 func (pRepository *paintRepository) GetWallItems() ([]domain.WallItems, error) {
 	var items []domain.WallItems
 
-	err := pRepository.db.MustExec(qryGetWallItems)
+	err := pRepository.db.Select(&items, qryGetWallItems)
 	if err != nil {
 		logrus.Error(err)
 		return []domain.WallItems{}, nil

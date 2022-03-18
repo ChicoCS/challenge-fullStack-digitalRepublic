@@ -10,7 +10,7 @@ import (
 	"gopkg.in/guregu/null.v4"
 )
 
-func TestCalculatePaintRoomCaseSuccess(t *testing.T) {
+func TestCalculateAmountOfPaintCansNeededCaseSuccess(t *testing.T) {
 	var ctx context.Context
 	paintMock := &mocks.PaintMock{}
 	service := &paintService{
